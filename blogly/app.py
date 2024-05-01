@@ -29,6 +29,7 @@ def homepage():
 @app.get('/users')
 def display_users():
     """Show all users sorted alphabetically"""
+
     return render_template('user_listing.jinja')
 
 
@@ -56,13 +57,13 @@ def display_specific_user_edit(user_id):
     return render_template('edit_user.jinja', 'TODO:')
 
 
-@app.post('users/int:<user_id>/edit')
+@app.post('/users/int:<user_id>/edit')
 def handle_user_edit(user_id):
     """Process edit form then redirect to /users page"""
     return redirect('/users')
 
 
-@app.post('users/int:<user_id>/delete')
+@app.post('/users/int:<user_id>/delete')
 def handle_user_delete(user_id):
     """Delete the user then redirect to /users page"""
     return redirect('/users')

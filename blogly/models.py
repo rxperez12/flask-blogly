@@ -28,7 +28,7 @@ class User (db.Model):
     )
 
     image_url = db.mapped_column(
-        db.String(100)
+        db.String()
     )
 
     def get_full_name(self):
