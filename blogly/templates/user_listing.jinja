@@ -4,7 +4,11 @@
 
 <h1>Users</h1>
 
-<p> Add user for loop</p>
+<list>
+{% for user in users %}
+      <li><a href="/users/{{ user.id }}">{{ user.get_full_name()}}</a></li>
+{% endfor %}
+</list>
 
 <button class="btn btn-primary"> Add user </button>
 

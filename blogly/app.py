@@ -29,8 +29,10 @@ def homepage():
 @app.get('/users')
 def display_users():
     """Show all users sorted alphabetically"""
+    q_users = db.select(User).order_by(User.first_name)
+    users = dbx(q_users).scalars().all()
 
-    return render_template('user_listing.jinja')
+    return render_template('user_listing.jinja', users=users)
 
 
 @app.get('/users/new')
@@ -40,30 +42,35 @@ def display_add_form():
 
 
 @app.post('/users/new')
-def handle_form_entry():
+def handle_new_user_entry():
     """Process the add form, add new user and redirects to /users"""
+
     return redirect('/users')
 
 
-@app.get('/users/int:<user_id>')
+@app.get('/users/<int:user_id>')
 def display_specific_user(user_id):
     """Show information about the given user"""
-    return render_template('user_details.jinja', 'TODO:')
+
+    q_user = db.select(User).where(User.id == user_id)
+    user = db.one_or_404(q_user)
+
+    return render_template('user_details.jinja', user=user)
 
 
-@app.get('/users/int:<user_id>/edit')
+@app.get('/users/<int:user_id>/edit')
 def display_specific_user_edit(user_id):
     """Show show the edit page for a given user"""
     return render_template('edit_user.jinja', 'TODO:')
 
 
-@app.post('/users/int:<user_id>/edit')
+@app.post('/users/<int:user_id>/edit')
 def handle_user_edit(user_id):
     """Process edit form then redirect to /users page"""
     return redirect('/users')
 
 
-@app.post('/users/int:<user_id>/delete')
+@app.post('/users/<int:user_id>/delete')
 def handle_user_delete(user_id):
     """Delete the user then redirect to /users page"""
     return redirect('/users')

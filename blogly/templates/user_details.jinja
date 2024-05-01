@@ -1,5 +1,9 @@
 {% extends 'base.jinja' %}
 {% block content %}
 
+<h1>{{user.get_full_name()}}</h1>
+<img src="{{user.image_url}}" />
+<button class="btn btn-primary"> Edit</button>
+<button class="btn btn-danger"> Delete</button>
 
 {% endblock %}
