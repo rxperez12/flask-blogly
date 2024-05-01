@@ -1,0 +1,8 @@
+Flask
+Werkzeug
+Flask-debugtoolbar
+Flask-SQLAlchemy
+psycopg2-binary
+ipython
+packaging
+python-slugify
