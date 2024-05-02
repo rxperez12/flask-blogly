@@ -125,3 +125,11 @@ def display_specific_post(post_id):
     post = db.get_or_404(Post, post_id)
 
     return render_template('post_details.jinja', post=post)
+
+@app.get('/users/<int:user_id>/posts/new')
+def display_new_post_form(user_id):
+    """Show new post for for specific user"""
+
+    user = db.get_or_404(User, user_id)
+
+    return render_template('new_post_form.jinja', user=user )

@@ -1,0 +1,36 @@
+{% extends 'base.jinja' %}
+{% block content %}
+
+<div class="container">
+  <h1> Add post for {{user.get_full_name()}} </h1>
+  
+  <form >
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input 
+        name="title" 
+        type="text" 
+        class="form-control" 
+        id="title" 
+        aria-describedby="Title"
+        placeholder='Enter a title' 
+        >
+      
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Content</label>
+      <input 
+        name="content" 
+        type="text" 
+        class="form-control" 
+        id="content" 
+        aria-describedby="content field"
+        placeholder='Enter your post' 
+        >
+    </div>
+    
+    <button class="btn btn-secondary" formmethod="GET" formaction="/users/{{ user.id }}">Cancel</button>
+    <button class="btn btn-primary" formmethod="POST" formaction="/users/{{ user.id }}/posts/new">Add</button>
+  </form>
+</div>
+{% endblock %}
