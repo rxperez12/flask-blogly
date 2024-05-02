@@ -1,6 +1,6 @@
 """Blogly application."""
 
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
 import os
 from models import db, dbx, User, DEFAULT_IMAGE_URL, Post
 from flask_debugtoolbar import DebugToolbarExtension
@@ -133,3 +133,24 @@ def display_new_post_form(user_id):
     user = db.get_or_404(User, user_id)
 
     return render_template('new_post_form.jinja', user=user )
+
+@app.post('/users/<int:user_id>/posts/new')
+def handle_new_post_form(user_id):
+    """Handle add form; add post and redirect to the user detail page"""
+
+    title = request.form.get('title')
+    content = request.form.get('content')
+
+    if(title and content): #COULD FIND BETTER WAY TO DO THIS
+        new_post = Post(
+            title=title,
+            content=content,
+            user_id=user_id
+        )
+        user = db.get_or_404(User, user_id)
+        user.posts.append(new_post)
+        db.session.commit()
+    else:
+        flash("Add a title and content to your post")
+
+    return redirect(f'/users/{user_id}')
