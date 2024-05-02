@@ -2,23 +2,44 @@
 {% block content %}
 
 <div class="container">
-<h1> Create a user </h1>
+  <h1> Create a user </h1>
+  
+  <form method='POST'>
+    <div class="mb-3">
+      <label for="firstName" class="form-label">First Name</label>
+      <input 
+        name="first_name" 
+        type="text" 
+        class="form-control" 
+        id="firstName" 
+        aria-describedby="first name field"
+        placeholder='Enter a first name' 
+        required>
+      
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input 
+        name="last_name" 
+        type="text" 
+        class="form-control" 
+        id="lastName" 
+        aria-describedby="last name field"
+        placeholder='Enter a last name' 
+        required>
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image URL</label>
+      <input 
+        name="image_url" 
+        type="text" 
+        class="form-control" 
+        id="imageUrl" 
+        aria-describedby="image url field"
+        placeholder='Provide an image of this user'>
+    </div>
 
-<form action='' method='POST'>
-  <div class="mb-3">
-    <label for="firstName" class="form-label">First Name</label>
-    <input name= "first_name" type="text" class="form-control" id="firstName" aria-describedby="first name field" placeholder='Enter a first name' required>
-  </div>
-  <div class="mb-3">
-    <label for="lastName" class="form-label">Last Name</label>
-    <input name= "last_name" type="text" class="form-control" id="lastName" aria-describedby="last name field" placeholder='Enter a last name' required>
-  </div>
-  <div class="mb-3">
-    <label for="imageUrl" class="form-label">Image URL</label>
-    <input name= "image_url" type="text" class="form-control" id="imageUrl" aria-describedby="image url field" placeholder='Provide an image of this user' >
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </div>
 {% endblock %}

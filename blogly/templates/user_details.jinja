@@ -4,16 +4,20 @@
 <!-- User detail comment for testing -->
 <div class="container">
 
-<h1>{{user.get_full_name()}}</h1>
-<img src="{{user.image_url}}" />
+  <h1>{{user.get_full_name()}}</h1>
+  {% if user.img %}
+  <img src="{{ user.image_url }}" />
+  {% endif %}
 
-<div class="m-3">
-  <button class="btn btn-primary m-3" onclick="window.location.href='/users/{{user.id}}/edit';">Edit</button>
 
-  <form action="/users/{{user.id}}/delete" method="post">
-    <input type="submit" name="delete" value="Delete" class="btn btn-danger"/>
-  </form>
-</div>
+  <div class="m-3">
+
+    <form>
+      <button formaction="/users/{{ user.id }}/edit" formmethod="GET" class="btn btn-primary">EDIT</button>
+      <button formaction="/users/{{ user.id }}/delete" formmethod="POST" class="btn btn-danger">DELETE</button>
+
+    </form>
+  </div>
 </div>
 
 {% endblock %}

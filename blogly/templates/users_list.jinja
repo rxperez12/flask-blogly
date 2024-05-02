@@ -4,16 +4,16 @@
 
 <!--Users list comment for testing-->
 <div class="container">
-<div class="m-3">
-  <h1>Users</h1>
-</div>
-<ul>
-{% for user in users %}
-      <li><a href="/users/{{ user.id }}">{{ user.get_full_name()}}</a></li>
-{% endfor %}
-</ul>
-
-<button class="btn btn-primary" onclick="window.location.href='/users/new';">Add new user</button>
+  <div class="m-3">
+    <h1>Users</h1>
+  </div>
+  <ul>
+    {% for user in users %}
+    <li><a href="/users/{{ user.id }}">{{ user.get_full_name()}}</a></li>
+    {% endfor %}
+  </ul>
+  {# anchor tag, href doesn't have to have on.click #}
+  <button class="btn btn-primary" onclick="window.location.href='/users/new';">Add new user</button>
 </div>
 
 {% endblock %}

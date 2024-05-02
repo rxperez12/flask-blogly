@@ -23,13 +23,15 @@ debug = DebugToolbarExtension(app)
 @app.get('/')
 def homepage():
     """TODO: WIP - Redirect to list of users"""
-    return render_template('base.jinja')
+
+    return redirect('/users')
 
 
 @app.get('/users')
 def display_users():
     """Show all users sorted alphabetically"""
-    q_users = db.select(User).order_by(User.first_name)
+
+    q_users = db.select(User).order_by(User.last_name, User.first_name)
     users = dbx(q_users).scalars().all()
 
     return render_template('users_list.jinja', users=users)
@@ -38,12 +40,14 @@ def display_users():
 @app.get('/users/new')
 def display_add_form():
     """Show add form for users"""
+
     return render_template("new_user_form.jinja")
 
 
 @app.post('/users/new')
 def handle_new_user_entry():
     """Process the add form, add new user and redirects to /users"""
+
     first_name = request.form['first_name']
     last_name = request.form['last_name']
     image_url = request.form['image_url'] or DEFAULT_IMAGE_URL
@@ -65,6 +69,7 @@ def display_specific_user(user_id):
 
     q_user = db.select(User).where(User.id == user_id)
     user = db.one_or_404(q_user)
+    # user = db.one_or_404(User, user_id)  # easier because does both rows above
 
     return render_template('user_details.jinja', user=user)
 
@@ -75,6 +80,7 @@ def display_specific_user_edit(user_id):
 
     q_user = db.select(User).where(User.id == user_id)
     user = db.one_or_404(q_user)
+    # user = db.one_or_404(User, user_id)  # easier because does both rows above
 
     return render_template('edit_user.jinja', user=user)
 
@@ -85,22 +91,16 @@ def handle_user_edit(user_id):
 
     q_user = db.select(User).where(User.id == user_id)
     user = db.one_or_404(q_user)
+    # user = db.get_or_404(User, user_id)  # easier because does both rows above
 
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    image_url = request.form.get('image_url')
-
-    if (first_name):
-        user.first_name = first_name
-    elif (last_name):
-        user.last_name = last_name
-    elif (image_url):
-        user.image_url = image_url
+    user.first_name = request.form['first_name'] or user.first_name
+    user.last_name = request.form['last_name'] or user.last_name
+    user.image_url = request.form['image_url'] or DEFAULT_IMAGE_URL
 
     db.session.commit()
     return redirect('/users')
 
-    # IS THERE A WAY TO GET THIS TO WORK????
+    # IS THERE A WAY TO GET THIS TO WORK???? - NOT GOOD IDEA / REALLY BAD IDEA
     # for key, value in request.form.items():
     #     if (value):
     #         user[key] = value - stupid doesn't work
@@ -110,8 +110,8 @@ def handle_user_edit(user_id):
 def handle_user_delete(user_id):
     """Delete the user then redirect to /users page"""
 
-    d_user = db.delete(User).where(User.id == user_id)
-    dbx(d_user)
+    user = db.get_or_404(User, user_id)
+    db.session.delete(user)
 
     db.session.commit()
 

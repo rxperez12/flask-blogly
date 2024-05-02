@@ -31,10 +31,19 @@ class User (db.Model):
     )
 
     image_url = db.mapped_column(
-        db.String()
+        db.String(),
+        default=DEFAULT_IMAGE_URL,
+        nullable=True
+        #TODO: Empty string better for nothing. Default - equals url, nullable = False - Always on creation, handle edit
     )
 
-    def get_full_name(self):
+    def get_full_name(self): #property could be a good solution in the future
         """Returns first name and last name as a string spearated by a space
         """
         return f'{self.first_name} {self.last_name}'
+
+
+# class Post(db.Model):
+#     """Model"""
+
+#     __tablename__ = 'post'
