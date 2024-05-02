@@ -76,10 +76,17 @@ class Post(db.Model):
         default=db.func.now()
     )
 
+    user_id = db.mapped_column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete ="CASCADE", onupdate="CASCADE"),
+        nullable=False
+    )
+
+
     user = db.relationship(
         "User",
         back_populates='posts',
-        cascade="all, delete-orphan"
+
     )
 
 
