@@ -17,6 +17,16 @@
       <button formaction="/users/{{ user.id }}/delete" formmethod="POST" class="btn btn-danger">DELETE</button>
 
     </form>
+
+    <h3> Posts</h3>
+      <ul>
+        {%for post in user.posts%}
+          <li>
+            <a href="/posts/{{post.id}}">{{ post.title }}</a>
+            <p>{{post.created_at}}</p>
+            </li> 
+        {% endfor %}
+      </ul>
   </div>
 </div>
 
