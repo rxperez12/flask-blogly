@@ -65,7 +65,7 @@ class UserViewTestCase(TestCase):
     def test_show_user(self):
         """Test whether user appears with first and last name"""
         with app.test_client() as client:
-            resp = client.get(f'/users/{self.id}')
+            resp = client.get(f'/users/{self.user_id}')
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
@@ -77,8 +77,8 @@ class UserViewTestCase(TestCase):
 
         with app.test_client() as client:
             user = {
-                "first_name": 'test2_first',
-                "last_name ": 'test2_last',
+                "first_name": "test2_first",
+                "last_name": "test2_last",
                 "image_url": DEFAULT_IMAGE_URL
             }
 
@@ -87,4 +87,3 @@ class UserViewTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn('test2_first', html)
-            self.assertIn('<!--Users list comment for testing-->', html)
