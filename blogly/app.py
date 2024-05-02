@@ -72,13 +72,38 @@ def display_specific_user(user_id):
 @app.get('/users/<int:user_id>/edit')
 def display_specific_user_edit(user_id):
     """Show show the edit page for a given user"""
-    return render_template('edit_user.jinja', 'TODO:')
+
+    q_user = db.select(User).where(User.id == user_id)
+    user = db.one_or_404(q_user)
+
+    return render_template('edit_user.jinja', user=user)
 
 
 @app.post('/users/<int:user_id>/edit')
 def handle_user_edit(user_id):
     """Process edit form then redirect to /users page"""
+
+    q_user = db.select(User).where(User.id == user_id)
+    user = db.one_or_404(q_user)
+
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    image_url = request.form.get('image_url')
+
+    if (first_name):
+        user.first_name = first_name
+    elif (last_name):
+        user.last_name = last_name
+    elif (image_url):
+        user.image_url = image_url
+
+    db.session.commit()
     return redirect('/users')
+
+    # IS THERE A WAY TO GET THIS TO WORK????
+    # for key, value in request.form.items():
+    #     if (value):
+    #         user[key] = value - stupid doesn't work
 
 
 @app.post('/users/<int:user_id>/delete')
