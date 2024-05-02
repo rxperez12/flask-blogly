@@ -48,6 +48,14 @@ def handle_new_user_entry():
     last_name = request.form['last_name']
     image_url = request.form['image_url'] or None
 
+    user = User(
+        first_name=first_name,
+        last_name=last_name,
+        image_url=image_url
+    )
+
+    db.session.add(user)
+    db.session.commit()
     return redirect('/users')
 
 
