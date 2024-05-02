@@ -2,7 +2,7 @@
 
 from flask import Flask, request, redirect, render_template
 import os
-from models import db, dbx, User, DEFAULT_IMAGE_URL
+from models import db, dbx, User, DEFAULT_IMAGE_URL, Post
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.exceptions import NotFound
 
@@ -116,3 +116,12 @@ def handle_user_delete(user_id):
     db.session.commit()
 
     return redirect('/users')
+
+
+@app.get('/posts/<int:post_id>')
+def display_specific_post(post_id):
+    """Show information about the given user"""
+
+    post = db.get_or_404(Post, post_id)
+
+    return render_template('user_details.jinja', post=post)
