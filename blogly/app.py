@@ -164,6 +164,18 @@ def display_post_edit(post_id):
 
     return render_template('edit_post.jinja', post=post)
 
+@app.post('/posts/<int:post_id>/edit')
+def handle_post_update(post_id):
+    """Handle editing of a post. Redirect back to the post view."""
+
+    post = db.get_or_404(Post, post_id)  # easier because does both rows above
+
+    post.title = request.form['title'] or post.tile
+    post.content = request.form['content'] or post.content
+
+    db.session.commit()
+
+    return redirect(f'/posts/{post_id}')
 
 @app.post('/posts/<int:post_id>/delete')
 def delete_specific_post(post_id):
