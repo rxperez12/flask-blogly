@@ -17,6 +17,11 @@ john = User(
     first_name="John",
     last_name='Smith',
 )
+taylor = Post(
+    title = "It's me",
+    content = "Hi, I'm the problem it's me",
+    user_id = 1
+)
 
 funny = Post(
     title = 'What does a nosey pepper do?',
@@ -32,7 +37,7 @@ true = Post(
 
 
 
-db.session.add_all([rob, john, funny, true])
+db.session.add_all([rob, john, funny, true, taylor])
 db.session.commit()
 
 
