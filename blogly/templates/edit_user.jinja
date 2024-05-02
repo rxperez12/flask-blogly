@@ -13,7 +13,7 @@
         class="form-control" 
         id="firstName" 
         aria-describedby="first name field"
-        placeholder='{{user.first_name}}'>
+        placeholder='{{ user.first_name }}'>
     </div>
     <div class="mb-3">
       <label for="lastName" class="form-label">Last Name</label>
@@ -23,7 +23,7 @@
         class="form-control" 
         id="lastName" 
         aria-describedby="last name field"
-        placeholder='{{user.last_name}}'>
+        placeholder='{{ user.last_name }}'>
     </div>
     <div class="mb-3">
       <label for="imageUrl" class="form-label">Image URL</label>
@@ -33,7 +33,7 @@
         class="form-control" 
         id="imageUrl" 
         aria-describedby="image url field"
-        placeholder='{{user.image_url}}'>
+        placeholder='{{ user.image_url }}'>
     </div>
 
       <button formaction="/users/{{ user.id }}" formmethod="GET" class="btn btn-secondary">Cancel</button>  
