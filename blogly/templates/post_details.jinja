@@ -1,0 +1,19 @@
+{% extends 'base.jinja' %}
+{% block content %}
+
+<!-- User detail comment for testing -->
+<div class="container">
+
+  <h1>{{post.title}}</h1>
+  <p>{{post.content}}</p>
+  <div class="m-3">
+    <form>
+      <button formaction="/posts/{{ post.id }}/edit" formmethod="GET" class="btn btn-primary">EDIT</button>
+      <button formaction="/posts/{{ post.id }}/delete" formmethod="POST" class="btn btn-danger">DELETE</button>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
