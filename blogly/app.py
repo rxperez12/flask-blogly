@@ -109,4 +109,10 @@ def handle_user_edit(user_id):
 @app.post('/users/<int:user_id>/delete')
 def handle_user_delete(user_id):
     """Delete the user then redirect to /users page"""
+
+    d_user = db.delete(User).where(User.id == user_id)
+    dbx(d_user)
+
+    db.session.commit()
+
     return redirect('/users')
