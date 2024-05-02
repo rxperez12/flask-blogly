@@ -124,4 +124,4 @@ def display_specific_post(post_id):
 
     post = db.get_or_404(Post, post_id)
 
-    return render_template('user_details.jinja', post=post)
+    return render_template('post_details.jinja', post=post)
