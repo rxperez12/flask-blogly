@@ -42,8 +42,44 @@ class User (db.Model):
         """
         return f'{self.first_name} {self.last_name}'
 
+    posts = db.relationship(
+        'Post',
+        back_populates='user',
+        cascade='all, delete-orphan'
+    )
 
-# class Post(db.Model):
-#     """Model"""
 
-#     __tablename__ = 'post'
+class Post(db.Model):
+    """Model"""
+
+    __tablename__ = 'post'
+
+    id = db.mapped_column(
+        db.Integer,
+        db.Identity(),
+        primary_key=True
+    )
+
+    title = db.mapped_column(
+        db.String(50),
+        nullable=False
+    )
+
+    content = db.mapped_column(
+        db.String(),
+        nullable = False
+    )
+
+    created_at = db.mapped_column(
+        db.DateTime,
+        nullable=False,
+        default=db.func.now()
+    )
+
+    user = db.relationship(
+        "User",
+        back_populates='posts',
+        cascade="all, delete-orphan"
+    )
+
+
