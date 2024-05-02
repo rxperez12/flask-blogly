@@ -13,11 +13,14 @@
   <div class="m-3">
 
     <form>
-      <button formaction="/users/{{ user.id }}/edit" formmethod="GET" class="btn btn-primary">EDIT</button>
+      <button 
+        formaction="/users/{{ user.id }}/edit" 
+        formmethod="GET" 
+        class="btn btn-primary">EDIT</button>
       <button formaction="/users/{{ user.id }}/delete" formmethod="POST" class="btn btn-danger">DELETE</button>
 
     </form>
-
+    <div></div>
     <h3> Posts</h3>
       <ul>
         {%for post in user.posts%}
@@ -27,6 +30,10 @@
             </li> 
         {% endfor %}
       </ul>
+      <form method="GET">
+        <button formaction="/users/{{ user.id }}/posts/new" class="btn btn-primary">Add Post</button>
+      </form>
+    </div>
   </div>
 </div>
 
