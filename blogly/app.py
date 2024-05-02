@@ -117,14 +117,7 @@ def handle_user_delete(user_id):
 
     return redirect('/users')
 
-
-@app.get('/posts/<int:post_id>')
-def display_specific_post(post_id):
-    """Show information about the given user"""
-
-    post = db.get_or_404(Post, post_id)
-
-    return render_template('post_details.jinja', post=post)
+###POST LISTENERS
 
 @app.get('/users/<int:user_id>/posts/new')
 def display_new_post_form(user_id):
@@ -154,3 +147,30 @@ def handle_new_post_form(user_id):
         flash("Add a title and content to your post")
 
     return redirect(f'/users/{user_id}')
+
+@app.get('/posts/<int:post_id>')
+def display_specific_post(post_id):
+    """Show information about the given user"""
+
+    post = db.get_or_404(Post, post_id)
+
+    return render_template('post_details.jinja', post=post)
+
+@app.get('/posts/<int:post_id>/edit')
+def display_post_edit(post_id):
+    """Show form to edit a post, and to cancel (back to user page)."""
+
+    post = db.get_or_404(Post, post_id)
+
+    return render_template('edit_post.jinja', post=post)
+
+
+@app.post('/posts/<int:post_id>/delete')
+def delete_specific_post(post_id):
+    """Delete the post."""
+
+    post = db.get_or_404(Post, post_id)
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect('/users') #directions didn't specify where to redirect
