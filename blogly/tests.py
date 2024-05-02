@@ -1,12 +1,11 @@
+from models import db, dbx, DEFAULT_IMAGE_URL, User
+from app import app
+from unittest import TestCase
 import os
 
 os.environ["DATABASE_URL"] = "postgresql:///blogly_test"
 os.environ["FLASK_DEBUG"] = "0"
 
-from unittest import TestCase
-
-from app import app
-from models import db, dbx, DEFAULT_IMAGE_URL, User
 
 # Make Flask errors be real errors, rather than HTML pages with error info
 app.config['TESTING'] = True
@@ -55,9 +54,37 @@ class UserViewTestCase(TestCase):
         db.session.rollback()
 
     def test_list_users(self):
+        """Test whether page lists users"""
         with app.test_client() as c:
             resp = c.get("/users")
             self.assertEqual(resp.status_code, 200)
             html = resp.get_data(as_text=True)
             self.assertIn("test1_first", html)
             self.assertIn("test1_last", html)
+
+    def test_show_user(self):
+        """Test whether user appears with first and last name"""
+        with app.test_client() as client:
+            resp = client.get(f'/users/{self.id}')
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('test1_first', html)
+            self.assertIn('<!-- User detail comment for testing -->', html)
+
+    def test_add_user(self):
+        """Test if user can be successfully added"""
+
+        with app.test_client() as client:
+            user = {
+                "first_name": 'test2_first',
+                "last_name ": 'test2_last',
+                "image_url": DEFAULT_IMAGE_URL
+            }
+
+            resp = client.post('/users/new', data=user, follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn('test2_first', html)
+            self.assertIn('<!--Users list comment for testing-->', html)

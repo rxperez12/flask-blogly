@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 dbx = db.session.execute
 
+
+DEFAULT_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+
 """Models for Blogly."""
 
 

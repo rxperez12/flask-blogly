@@ -2,7 +2,7 @@
 
 from flask import Flask, request, redirect, render_template
 import os
-from models import db, dbx, User
+from models import db, dbx, User, DEFAULT_IMAGE_URL
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.exceptions import NotFound
 
@@ -32,7 +32,7 @@ def display_users():
     q_users = db.select(User).order_by(User.first_name)
     users = dbx(q_users).scalars().all()
 
-    return render_template('user_listing.jinja', users=users)
+    return render_template('users_list.jinja', users=users)
 
 
 @app.get('/users/new')
@@ -46,7 +46,7 @@ def handle_new_user_entry():
     """Process the add form, add new user and redirects to /users"""
     first_name = request.form['first_name']
     last_name = request.form['last_name']
-    image_url = request.form['image_url'] or None
+    image_url = request.form['image_url'] or DEFAULT_IMAGE_URL
 
     user = User(
         first_name=first_name,
