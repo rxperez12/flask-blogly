@@ -6,15 +6,15 @@
 <form>
   <div class="mb-3">
     <label for="firstName" class="form-label">First Name</label>
-    <input type="text" class="form-control" id="firstName" aria-describedby="first name field" placeholder='{{first_name}}'current_first_name required>
+    <input name= "first_name" type="text" class="form-control" id="firstName" aria-describedby="first name field" placeholder='{{first_name}}'current_first_name required>
   </div>
   <div class="mb-3">
     <label for="lastName" class="form-label">Last Name</label>
-    <input type="text" class="form-control" id="lastName" aria-describedby="last name field" placeholder='{{last_name}} current_last_name' required>
+    <input name="last_name" type="text" class="form-control" id="lastName" aria-describedby="last name field" placeholder='{{last_name}} current_last_name' required>
   </div>
   <div class="mb-3">
     <label for="imageUrl" class="form-label">Image URL</label>
-    <input type="text" class="form-control" id="imageUrl" aria-describedby="image url field" placeholder='{{image_Url}} current data' >
+    <input name="image_url" type="text" class="form-control" id="imageUrl" aria-describedby="image url field" placeholder='{{image_url}} current data' >
   </div>
 
   <button id="cancel" name="cancel" class="btn btn-default" onclick="history.back()">Cancel</button>

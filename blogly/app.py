@@ -44,6 +44,9 @@ def display_add_form():
 @app.post('/users/new')
 def handle_new_user_entry():
     """Process the add form, add new user and redirects to /users"""
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    image_url = request.form['image_url'] or None
 
     return redirect('/users')
 
