@@ -1,7 +1,7 @@
 """Seed movies db with data."""
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 app.app_context().push()
 
@@ -18,5 +18,21 @@ john = User(
     last_name='Smith',
 )
 
-db.session.add_all([rob, john])
+funny = Post(
+    title = 'What does a nosey pepper do?',
+    content = 'It gets jalapeño business.',
+    user_id = 1
+)
+
+true = Post(
+    title = 'SQL: Why it is the worst',
+    content = "It's so obvious anyone can see that. I don't even need a reason.",
+    user_id = 2
+)
+
+
+
+db.session.add_all([rob, john, funny, true])
 db.session.commit()
+
+
