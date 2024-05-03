@@ -52,7 +52,7 @@ class User (db.Model):
 class Post(db.Model):
     """Model"""
 
-    __tablename__ = 'post'
+    __tablename__ = 'post' #TODO: wrong name
 
     id = db.mapped_column(
         db.Integer,

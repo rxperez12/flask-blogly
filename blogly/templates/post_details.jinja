@@ -8,8 +8,11 @@
   <p>{{post.content}}</p>
   <div class="m-3">
     <form>
-      <button formaction="/posts/{{ post.id }}/edit" formmethod="GET" class="btn btn-primary">EDIT</button>
-      <button formaction="/posts/{{ post.id }}/delete" formmethod="POST" class="btn btn-danger">DELETE</button>
+      <button
+      formaction="/posts/{{ post.id }}/edit" formmethod="GET" class="btn btn-primary">EDIT</button>
+      <button
+        formaction="/posts/{{ post.id }}/delete"
+        formmethod="POST" class="btn btn-danger">DELETE</button>
 
     </form>
 

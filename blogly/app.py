@@ -140,7 +140,7 @@ def handle_new_post_form(user_id):
             content=content,
             user_id=user_id
         )
-        user = db.get_or_404(User, user_id)
+        user = db.get_or_404(User, user_id) #move up to top of
         user.posts.append(new_post)
         db.session.commit()
     else:
@@ -150,7 +150,7 @@ def handle_new_post_form(user_id):
 
 @app.get('/posts/<int:post_id>')
 def display_specific_post(post_id):
-    """Show information about the given user"""
+    """Show information about the given post"""
 
     post = db.get_or_404(Post, post_id)
 
@@ -170,7 +170,7 @@ def handle_post_update(post_id):
 
     post = db.get_or_404(Post, post_id)  # easier because does both rows above
 
-    post.title = request.form['title'] or post.tile
+    post.title = request.form['title'] or post.title
     post.content = request.form['content'] or post.content
 
     db.session.commit()
@@ -182,7 +182,8 @@ def delete_specific_post(post_id):
     """Delete the post."""
 
     post = db.get_or_404(Post, post_id)
+    user_id = post.user_id
     db.session.delete(post)
-    db.session.commit()
+    db.session.commit() #flash message to delete
 
-    return redirect('/users') #directions didn't specify where to redirect
+    return redirect(f'/users/{user_id}') #directions didn't specify where to redirect
